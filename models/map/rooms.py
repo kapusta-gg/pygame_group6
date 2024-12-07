@@ -3,10 +3,13 @@ import pygame
 
 class Room:
     def __init__(self):
+        self.room = pygame.rect.Rect(50, 50, 900, 700)
+        self.room_color = pygame.color.Color((0, 120, 255))
         self.field = Field()
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.Surface):
         self.field.draw(screen)
+        pygame.draw.rect(screen, self.room_color, self.room, width=2)
 
 
 class Door: # Пока не трогаем
