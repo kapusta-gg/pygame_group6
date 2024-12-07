@@ -13,6 +13,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 running = False
         # Отрисовка объектов
-        # Выполняем логику
+        screen.fill((255, 0, 0))
+        # Выполняем логику (пока пусто)
         # Обновление экрана
         pygame.display.flip()
