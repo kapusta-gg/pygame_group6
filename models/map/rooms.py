@@ -13,7 +13,7 @@ class Door: # Пока не трогаем
 class Field:
     def __init__(self):
         self.field_hitbox = pygame.rect.Rect(100, 100, 800, 600)
-        self.field_color = pygame.color.Color((0, 255, 0))
+        self.field_color = pygame.color.Color((0, 0, 255))
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.field_color, self.field_hitbox, width=5)
