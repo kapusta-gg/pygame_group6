@@ -5,6 +5,9 @@ class Room:
     def __init__(self):
         self.field = Field()
 
+    def draw(self, screen):
+        self.field.draw(screen)
+
 
 class Door: # Пока не трогаем
     pass
