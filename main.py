@@ -1,10 +1,9 @@
-import pygame
-
 from models.map.rooms import Room
+from models.map.objects import *
 from models.interface.minimap import MiniMap
 from models.interface.hud import HUD
 from models.entities.player import Player
-from models.entities.enemies import Enemy
+from models.entities.enemies import *
 
 
 if __name__ == '__main__':
@@ -20,6 +19,7 @@ if __name__ == '__main__':
 
     # Тестовая
     enemy = Enemy(300, 300)
+    objectt = Object(100, 100)
 
     running = True
     while running:
@@ -35,6 +35,7 @@ if __name__ == '__main__':
         player.draw(screen)
 
         enemy.draw(screen)
+        objectt.draw(screen)
         # Выполняем логику (пока пусто)
         # Обновление экрана
         pygame.display.flip()
