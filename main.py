@@ -35,9 +35,7 @@ if __name__ == '__main__':
     enemy = Enemy(300, 300)
     objectt = Object(100, 100)
 
-    pos = (0, 0)
     isShowHitbox = True
-    isMovePlayer = [False, False, False, False]
 
     clock = pygame.time.Clock()
 
@@ -52,14 +50,12 @@ if __name__ == '__main__':
                 if event.key == pygame.K_u:
                     isShowHitbox = not isShowHitbox
                 # Проверка WASD
-                [change_movement(KEYS_TO_IND[i], True, isMovePlayer)
+                [player.change_movement(i, True)
                  for i in [pygame.K_w, pygame.K_a, pygame.K_s, pygame.K_d] if event.key == i]
-                pos = change_movement(UP, isMovePlayer[UP], isMovePlayer)
             if event.type == pygame.KEYUP:
                 # Проверка WASD
-                [change_movement(KEYS_TO_IND[i], False, isMovePlayer)
+                [player.change_movement(i, False)
                  for i in [pygame.K_w, pygame.K_a, pygame.K_s, pygame.K_d] if event.key == i]
-                pos = change_movement(UP, isMovePlayer[UP], isMovePlayer)
 
         # Отрисовка объектов
         screen.fill((0, 0, 0))
@@ -71,7 +67,7 @@ if __name__ == '__main__':
         enemy.draw(screen, is_hitbox=isShowHitbox)
         objectt.draw(screen, is_hitbox=isShowHitbox)
         # Выполняем логику
-        if any(isMovePlayer):
-            player.move(*(i * tick / 1000 for i in pos))
+        if any(player.which_direction):
+            player.move(tick / 1000)
         # Обновление экрана
         pygame.display.flip()
