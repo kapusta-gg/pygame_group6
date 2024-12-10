@@ -6,5 +6,6 @@ class Enemy:
         self.enemy_hitbox = pygame.rect.Rect(x, y, 90, 90)
         self.enemy_color = pygame.color.Color((127, 0, 255))
 
-    def draw(self, screen: pygame.Surface):
-        pygame.draw.rect(screen, self.enemy_color, self.enemy_hitbox, width=2)
+    def draw(self, screen: pygame.Surface, is_hitbox=True):
+        if is_hitbox:
+            pygame.draw.rect(screen, self.enemy_color, self.enemy_hitbox, width=2)

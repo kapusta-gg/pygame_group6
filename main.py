@@ -21,21 +21,26 @@ if __name__ == '__main__':
     enemy = Enemy(300, 300)
     objectt = Object(100, 100)
 
+    isShowHitbox = True
+
     running = True
     while running:
         # Обрабатываем события
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_u:
+                    isShowHitbox = not isShowHitbox
         # Отрисовка объектов
-
-        room.draw(screen)
+        screen.fill((0, 0, 0))
+        hud.draw(screen, is_hitbox=isShowHitbox)
+        room.draw(screen, is_hitbox=isShowHitbox)
         map.draw(screen)
-        hud.draw(screen)
-        player.draw(screen)
+        player.draw(screen, is_hitbox=isShowHitbox)
 
-        enemy.draw(screen)
-        objectt.draw(screen)
+        enemy.draw(screen, is_hitbox=isShowHitbox)
+        objectt.draw(screen, is_hitbox=isShowHitbox)
         # Выполняем логику (пока пусто)
         # Обновление экрана
         pygame.display.flip()

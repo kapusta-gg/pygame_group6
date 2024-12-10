@@ -10,11 +10,11 @@ class Room:
         # Тестовая
         self.door = Door(400, 50)
 
-    def draw(self, screen: pygame.Surface):
-        self.field.draw(screen)
-        pygame.draw.rect(screen, self.room_color, self.room, width=2)
-
-        self.door.draw(screen)
+    def draw(self, screen: pygame.Surface, is_hitbox=True):
+        if is_hitbox:
+            self.field.draw(screen, is_hitbox=is_hitbox)
+            pygame.draw.rect(screen, self.room_color, self.room, width=2)
+            self.door.draw(screen, is_hitbox=is_hitbox)
 
 
 class Door:
@@ -22,8 +22,9 @@ class Door:
         self.door = pygame.rect.Rect(x, y, 200, 50)
         self.door_color = pygame.color.Color((0, 255, 255))
 
-    def draw(self, screen: pygame.Surface):
-        pygame.draw.rect(screen, self.door_color, self.door, width=2)
+    def draw(self, screen: pygame.Surface, is_hitbox=True):
+        if is_hitbox:
+            pygame.draw.rect(screen, self.door_color, self.door, width=2)
 
 
 class Field:
@@ -31,5 +32,6 @@ class Field:
         self.field_hitbox = pygame.rect.Rect(100, 100, 800, 600)
         self.field_color = pygame.color.Color((0, 0, 255))
 
-    def draw(self, screen):
-        pygame.draw.rect(screen, self.field_color, self.field_hitbox, width=2)
+    def draw(self, screen, is_hitbox=True):
+        if is_hitbox:
+            pygame.draw.rect(screen, self.field_color, self.field_hitbox, width=2)
