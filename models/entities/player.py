@@ -17,7 +17,7 @@ class Player:
         self.player_hitbox = pygame.rect.Rect(self.x, self.y, 90, 90)
         self.player_color = pygame.color.Color((0, 255, 0))
 
-    def change_movement(self, key, state):
+    def change_movement(self, key: int, state: bool):
         ind = Player.KEYS_TO_IND[key]
         Player.which_direction[ind] = state
         x = sum([Player.DIRECTIONS[i][0] for i in range(4) if Player.which_direction[i]])
@@ -25,10 +25,11 @@ class Player:
         self.direction_x = x
         self.direction_y = y
 
-    def draw(self, screen: pygame.Surface):
-        pygame.draw.rect(screen, self.player_color, self.player_hitbox, width=2)
+    def draw(self, screen: pygame.Surface, is_show_hitbox=True):
+        if is_show_hitbox:
+            pygame.draw.rect(screen, self.player_color, self.player_hitbox, width=2)
 
-    def move(self, tick):
+    def move(self, tick: float):
         self.x += (Player.SPEED * self.direction_x * tick) / 1000
         self.y += (Player.SPEED * self.direction_y * tick) / 1000
         self.player_hitbox.x = self.x

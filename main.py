@@ -45,13 +45,12 @@ if __name__ == '__main__':
         # Отрисовка объектов
         screen.fill((0, 0, 0))
         map.draw(screen)
-        hud.draw(screen)
-        if isShowHitbox:
-            room.draw(screen)
-            player.draw(screen)
-            enemy.draw(screen)
-            objectt.draw(screen)
-        # Выполняем логику (пока пусто)
+        hud.draw(screen, is_show_hitbox=isShowHitbox)
+        room.draw(screen, is_show_hitbox=isShowHitbox)
+        player.draw(screen, is_show_hitbox=isShowHitbox)
+        enemy.draw(screen, is_show_hitbox=isShowHitbox)
+        objectt.draw(screen, is_show_hitbox=isShowHitbox)
+        # Выполняем логику
         if any(player.which_direction):
             player.move(tick)
         # Обновление экрана
