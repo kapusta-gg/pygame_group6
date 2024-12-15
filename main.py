@@ -17,25 +17,42 @@ if __name__ == '__main__':
 
     player = Player(450, 350)
 
+    isShowHitbox = True
+
     # Тестовая
     enemy = Enemy(300, 300)
     objectt = Object(100, 100)
 
+    clock = pygame.time.Clock()
+
     running = True
     while running:
+        tick = clock.tick()
         # Обрабатываем события
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        # Отрисовка объектов
 
-        room.draw(screen)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F1:
+                    isShowHitbox = not isShowHitbox
+                if event.key in [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]:
+                    player.change_movement(event.key, True)
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]:
+                    player.change_movement(event.key, False)
+
+        # Отрисовка объектов
+        screen.fill((0, 0, 0))
         map.draw(screen)
         hud.draw(screen)
-        player.draw(screen)
-
-        enemy.draw(screen)
-        objectt.draw(screen)
+        if isShowHitbox:
+            room.draw(screen)
+            player.draw(screen)
+            enemy.draw(screen)
+            objectt.draw(screen)
         # Выполняем логику (пока пусто)
+        if any(player.which_direction):
+            player.move(tick)
         # Обновление экрана
         pygame.display.flip()
