@@ -15,13 +15,11 @@ if __name__ == '__main__':
     map = MiniMap()
     hud = HUD()
 
+    room.field.load_room("rooms_levels/room1.txt")
+
     player = Player(450, 350)
 
     isShowHitbox = True
-
-    # Тестовая
-    enemy = Enemy(300, 300)
-    objectt = Object(100, 100)
 
     clock = pygame.time.Clock()
 
@@ -45,11 +43,9 @@ if __name__ == '__main__':
         # Отрисовка объектов
         screen.fill((0, 0, 0))
         map.draw(screen)
-        hud.draw(screen, is_show_hitbox=isShowHitbox)
         room.draw(screen, is_show_hitbox=isShowHitbox)
+        hud.draw(screen, is_show_hitbox=isShowHitbox)
         player.draw(screen, is_show_hitbox=isShowHitbox)
-        enemy.draw(screen, is_show_hitbox=isShowHitbox)
-        objectt.draw(screen, is_show_hitbox=isShowHitbox)
         # Выполняем логику
         if any(player.which_direction):
             player.move(tick)
