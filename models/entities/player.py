@@ -34,3 +34,6 @@ class Player:
         self.y += (Player.SPEED * self.direction_y * tick) / 1000
         self.player_hitbox.x = self.x
         self.player_hitbox.y = self.y
+
+    def get_coords(self):
+        return self.player_hitbox.x + 45, self.player_hitbox.y + 45

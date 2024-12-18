@@ -15,7 +15,7 @@ if __name__ == '__main__':
     map = MiniMap()
     hud = HUD()
 
-    room.field.load_room("rooms_levels/room1.txt")
+    room.field.load_room("rooms_levels/room2.txt")
 
     player = Player(450, 350)
 
@@ -47,6 +47,10 @@ if __name__ == '__main__':
         hud.draw(screen, is_show_hitbox=isShowHitbox)
         player.draw(screen, is_show_hitbox=isShowHitbox)
         # Выполняем логику
+        for col in room.field.field:
+            for obj in col:
+                if issubclass(Enemy, obj.__class__):
+                    obj.chase_player(*player.get_coords(), tick)
         if any(player.which_direction):
             player.move(tick)
         # Обновление экрана
