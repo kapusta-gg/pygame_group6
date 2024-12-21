@@ -4,6 +4,7 @@ from models.interface.minimap import MiniMap
 from models.interface.hud import HUD
 from models.entities.player import Player
 from models.entities.enemies import *
+from models.cursor import Cursor
 
 
 if __name__ == '__main__':
@@ -15,11 +16,14 @@ if __name__ == '__main__':
     map = MiniMap()
     hud = HUD()
 
-    room.field.load_room("rooms_levels/room2.txt")
+    room.field.load_room("rooms_levels/room1.txt")
 
     player = Player(450, 350)
 
     isShowHitbox = True
+
+    cursor = Cursor()
+    pygame.mouse.set_visible(False)
 
     clock = pygame.time.Clock()
 
@@ -40,12 +44,16 @@ if __name__ == '__main__':
                 if event.key in [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]:
                     player.change_movement(event.key, False)
 
+            if event.type == pygame.MOUSEMOTION:
+                cursor.move(*event.pos)
+
         # Отрисовка объектов
-        screen.fill((0, 0, 0))
+        screen.fill((100, 100, 100))
         map.draw(screen)
         room.draw(screen, is_show_hitbox=isShowHitbox)
         hud.draw(screen, is_show_hitbox=isShowHitbox)
         player.draw(screen, is_show_hitbox=isShowHitbox)
+        cursor.draw(screen)
         # Выполняем логику
         for col in room.field.field:
             for obj in col:

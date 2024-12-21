@@ -1,4 +1,5 @@
 import pygame
+from methods import load_image
 
 
 class Player:
@@ -10,12 +11,19 @@ class Player:
                    pygame.K_a: LEFT,
                    pygame.K_d: RIGHT}
     which_direction = [False, False, False, False]
+    image = load_image("images/player.png")
 
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
         self.player_hitbox = pygame.rect.Rect(self.x, self.y, 90, 90)
         self.player_color = pygame.color.Color((0, 255, 0))
+
+        self.sprite = pygame.sprite.Sprite()
+        self.sprite.image = Player.image
+        self.sprite.rect = self.player_hitbox
+        self._ = pygame.sprite.GroupSingle()
+        self._.add(self.sprite)
 
     def change_movement(self, key: int, state: bool):
         ind = Player.KEYS_TO_IND[key]
@@ -26,6 +34,7 @@ class Player:
         self.direction_y = y
 
     def draw(self, screen: pygame.Surface, is_show_hitbox=True):
+        self._.draw(screen)
         if is_show_hitbox:
             pygame.draw.rect(screen, self.player_color, self.player_hitbox, width=2)
 

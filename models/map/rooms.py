@@ -39,13 +39,13 @@ class Field:
     def draw(self, screen: pygame.Surface, is_show_hitbox=True):
         if is_show_hitbox:
             pygame.draw.rect(screen, self.field_color, self.field_hitbox, width=2)
-            for i in range(8):
-                for j in range(6):
-                    if self.field[j][i] is not None:
-                        self.field[j][i].draw(screen, is_show_hitbox=is_show_hitbox)
+        for i in range(8):
+            for j in range(6):
+                if self.field[j][i] is not None:
+                    self.field[j][i].draw(screen, is_show_hitbox=is_show_hitbox)
 
     def load_room(self, room_txt):
-        # файл с матрице 8х6
+        # файл с матрицей 8х6
         # 0 - земля
         # 1 - противник (объекта класса Enemy)
         # 2 - препятствие (объекта класса Object)
