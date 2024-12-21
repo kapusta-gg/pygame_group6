@@ -1,8 +1,12 @@
 import pygame
+from methods import load_image
 
 
 class Enemy:
     SPEED = 50
+
+    # scale - изменение размеров изображения
+    image = pygame.transform.scale(load_image("images/enemy.png"), (90, 90))
 
     def __init__(self, x: int, y: int):
         self.x = x
@@ -10,7 +14,14 @@ class Enemy:
         self.enemy_hitbox = pygame.rect.Rect(self.x, self.y, 90, 90)
         self.enemy_color = pygame.color.Color((127, 0, 255))
 
+        self.sprite = pygame.sprite.Sprite()
+        self.sprite.image = Enemy.image
+        self.sprite.rect = self.enemy_hitbox
+        self._ = pygame.sprite.GroupSingle()
+        self._.add(self.sprite)
+
     def draw(self, screen: pygame.Surface, is_show_hitbox=True):
+        self._.draw(screen)
         if is_show_hitbox:
             pygame.draw.rect(screen, self.enemy_color, self.enemy_hitbox, width=2)
 
