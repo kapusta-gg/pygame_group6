@@ -1,5 +1,8 @@
+import pygame.transform
+
 from models.map.objects import *
 from models.entities.enemies import *
+
 
 class Room:
     def __init__(self):
@@ -30,13 +33,21 @@ class Door:
 
 class Field:
     CELL_SIZE = 100
+    image = pygame.transform.scale(load_image("images/floor.png"), (800, 600))
 
     def __init__(self):
         self.field_hitbox = pygame.rect.Rect(100, 100, 800, 600)
         self.field_color = pygame.color.Color((0, 0, 255))
         self.field = [[None] * 8 for _ in range(6)]
 
+        self.sprite = pygame.sprite.Sprite()
+        self.sprite.image = Field.image
+        self.sprite.rect = self.field_hitbox
+        self._ = pygame.sprite.GroupSingle()
+        self._.add(self.sprite)
+
     def draw(self, screen: pygame.Surface, is_show_hitbox=True):
+        self._.draw(screen)
         if is_show_hitbox:
             pygame.draw.rect(screen, self.field_color, self.field_hitbox, width=2)
         for i in range(8):
@@ -55,6 +66,6 @@ class Field:
         for i in range(8):
             for j in range(6):
                 if l[j][i] == "1":
-                    self.field[j][i] = Object(100 + i * Field.CELL_SIZE, 100 + j * Field.CELL_SIZE)
+                    self.field[j][i] = Rock(100 + i * Field.CELL_SIZE, 100 + j * Field.CELL_SIZE)
                 elif l[j][i] == "2":
                     self.field[j][i] = Enemy(100 + i * Field.CELL_SIZE, 100 + j * Field.CELL_SIZE)
