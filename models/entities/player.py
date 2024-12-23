@@ -45,7 +45,7 @@ class Player:
         x = self.x + move_x
         y = self.y + move_y
 
-        if any(pygame.sprite.spritecollide(self.sprite, objs, False)):
+        if any(pygame.sprite.collide_mask(self.sprite, obj) for obj in objs):
             self.player_hitbox.x = x
             self.player_hitbox.y = y
             return
