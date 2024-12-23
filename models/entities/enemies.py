@@ -1,5 +1,6 @@
 import pygame
 from methods import load_image
+from models.entities.player import Player
 
 
 class Enemy:
@@ -25,7 +26,10 @@ class Enemy:
         if is_show_hitbox:
             pygame.draw.rect(screen, self.enemy_color, self.enemy_hitbox, width=2)
 
-    def chase_player(self, player_pos_x, player_pos_y, tick):
+    def chase_player(self, player: Player, tick):
+        player_pos_x, player_pos_y = player.get_coords()
+        if pygame.sprite.spritecollide(self.sprite, player._, False):
+            return
         enemy_pos_x = self.enemy_hitbox.x + 45
         enemy_pos_y = self.enemy_hitbox.y + 45
         direction_x = (player_pos_x - enemy_pos_x) / abs(player_pos_x - enemy_pos_x) / 2 if player_pos_x - enemy_pos_x else 0

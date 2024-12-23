@@ -59,7 +59,7 @@ if __name__ == '__main__':
         for col in room.field.field:
             for obj in col:
                 if issubclass(Enemy, obj.__class__):
-                    obj.chase_player(*player.get_coords(), tick)
+                    obj.chase_player(player, tick)
                 if issubclass(Object, obj.__class__):
                     objs.append(obj)
         if any(player.which_direction):
