@@ -1,5 +1,3 @@
-import pygame
-from methods import load_image
 from models.map.rooms import *
 
 
