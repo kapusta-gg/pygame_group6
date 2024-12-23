@@ -55,11 +55,14 @@ if __name__ == '__main__':
         player.draw(screen, is_show_hitbox=isShowHitbox)
         cursor.draw(screen)
         # Выполняем логику
+        objs = []
         for col in room.field.field:
             for obj in col:
                 if issubclass(Enemy, obj.__class__):
                     obj.chase_player(*player.get_coords(), tick)
+                if issubclass(Object, obj.__class__):
+                    objs.append(obj)
         if any(player.which_direction):
-            player.move(tick)
+            player.move(tick, room.field.objs_group)
         # Обновление экрана
         pygame.display.flip()

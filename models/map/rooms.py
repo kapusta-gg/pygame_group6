@@ -45,6 +45,7 @@ class Field:
         self.sprite.rect = self.field_hitbox
         self._ = pygame.sprite.GroupSingle()
         self._.add(self.sprite)
+        self.objs_group = None
 
     def draw(self, screen: pygame.Surface, is_show_hitbox=True):
         self._.draw(screen)
@@ -63,9 +64,11 @@ class Field:
         f = open(room_txt, "r")
         l = f.readlines()
         f.close()
+        self.objs_group = pygame.sprite.Group()
         for i in range(8):
             for j in range(6):
                 if l[j][i] == "1":
                     self.field[j][i] = Rock(100 + i * Field.CELL_SIZE, 100 + j * Field.CELL_SIZE)
+                    self.objs_group.add(self.field[j][i].sprite)
                 elif l[j][i] == "2":
                     self.field[j][i] = Enemy(100 + i * Field.CELL_SIZE, 100 + j * Field.CELL_SIZE)

@@ -28,7 +28,7 @@ class Enemy:
     def chase_player(self, player_pos_x, player_pos_y, tick):
         enemy_pos_x = self.enemy_hitbox.x + 45
         enemy_pos_y = self.enemy_hitbox.y + 45
-        direction_x = (player_pos_x - enemy_pos_x) / abs(player_pos_x - enemy_pos_x) if player_pos_x - enemy_pos_x else 0
+        direction_x = (player_pos_x - enemy_pos_x) / abs(player_pos_x - enemy_pos_x) / 2 if player_pos_x - enemy_pos_x else 0
         direction_y = (player_pos_y - enemy_pos_y) / abs(player_pos_y - enemy_pos_y) if player_pos_y - enemy_pos_y else 0
         self.x += (Enemy.SPEED * direction_x * tick) / 1000
         self.y += (Enemy.SPEED * direction_y * tick) / 1000

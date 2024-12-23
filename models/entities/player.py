@@ -1,5 +1,6 @@
 import pygame
 from methods import load_image
+from models.map.rooms import *
 
 
 class Player:
@@ -16,7 +17,7 @@ class Player:
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
-        self.player_hitbox = pygame.rect.Rect(self.x, self.y, 90, 90)
+        self.player_hitbox = pygame.rect.Rect(self.x, self.y, 80, 100)
         self.player_color = pygame.color.Color((0, 255, 0))
 
         self.sprite = pygame.sprite.Sprite()
@@ -38,9 +39,20 @@ class Player:
         if is_show_hitbox:
             pygame.draw.rect(screen, self.player_color, self.player_hitbox, width=2)
 
-    def move(self, tick: float):
-        self.x += (Player.SPEED * self.direction_x * tick) / 1000
-        self.y += (Player.SPEED * self.direction_y * tick) / 1000
+    def move(self, tick: float, objs: list[Object]):
+        move_x = (Player.SPEED * self.direction_x * tick) / 1000
+        move_y = (Player.SPEED * self.direction_y * tick) / 1000
+        x = self.x + move_x
+        y = self.y + move_y
+
+        if any(pygame.sprite.spritecollide(self.sprite, objs, False)):
+            self.player_hitbox.x = x
+            self.player_hitbox.y = y
+            return
+        if not 100 <= x <= 820 or not 100 <= y <= 600:
+            return
+        self.x = x
+        self.y = y
         self.player_hitbox.x = self.x
         self.player_hitbox.y = self.y
 
